@@ -1,4 +1,4 @@
-package com.example.myawesomeplaces;
+package com.myawesomeplaces;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.myawesomeplaces.R;
 
 public class AddFrag extends SherlockFragment {
 

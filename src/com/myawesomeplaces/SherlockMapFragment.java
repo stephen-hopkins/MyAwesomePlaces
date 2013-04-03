@@ -1,4 +1,4 @@
-package com.example.myawesomeplaces;
+package com.myawesomeplaces;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;

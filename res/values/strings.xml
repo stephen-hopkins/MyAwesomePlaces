@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyAwesomePlaces</string>
+    <string name="app_name">My Awesome Places</string>
     <string name="add">Add Place</string>
     <string name="settings">Settings</string>
     <string name="find">Find</string>

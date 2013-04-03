@@ -1,9 +1,10 @@
-package com.example.myawesomeplaces;
+package com.myawesomeplaces;
 
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.myawesomeplaces.R;
 
 public class AddActivity extends SherlockFragmentActivity {
 	

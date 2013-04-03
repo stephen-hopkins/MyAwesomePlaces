@@ -1,4 +1,4 @@
-package com.example.myawesomeplaces;
+package com.myawesomeplaces;
 
 public class DataFetcher {
 	

@@ -1,4 +1,4 @@
-package com.example.myawesomeplaces;
+package com.myawesomeplaces;
 
 
 import com.actionbarsherlock.app.ActionBar;
@@ -9,6 +9,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.myawesomeplaces.R;
 
 import android.content.Intent;
 import android.os.Bundle;

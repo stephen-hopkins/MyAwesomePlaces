@@ -1,4 +1,4 @@
-package com.example.myawesomeplaces;
+package com.myawesomeplaces;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
