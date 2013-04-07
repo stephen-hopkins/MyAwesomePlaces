@@ -3,6 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+     <Button
+        android:id="@+id/buttonSearchNearby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/searchNearby" 
+        android:onClick="buttonSearchNearbyClicked" />
 
     <TextView
         android:id="@+id/findText"
@@ -11,38 +18,34 @@
         android:text="@string/find"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/searchName"
+   <EditText
+        android:id="@+id/searchParameter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" >
-
+        android:ems="10" > 
         <requestFocus />
     </EditText>
     
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    	<RadioButton
-        	android:id="@+id/radioNearMe"
+    <RadioButton
+        	android:id="@+id/radioWithin"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:text="@string/nearme" 
-        	android:checked="true" />
-    	<RadioButton
-        	android:id="@+id/radioNearOther"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/near" />
-    </RadioGroup>
+        	android:text="@string/within" 
+        	android:checked="true" 
+        	android:onClick="onRadioButtonClicked"/>
 
-    <EditText
-        android:id="@+id/searchPlace"
+    <Spinner
+        android:id="@+id/spinnerDistance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
-
+        android:layout_height="wrap_content" />
+    
+    <RadioButton
+        	android:id="@+id/radioAnywhere"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/anywhere" 
+        	android:onClick="onRadioButtonClicked"/>
+    
     <Button
         android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
