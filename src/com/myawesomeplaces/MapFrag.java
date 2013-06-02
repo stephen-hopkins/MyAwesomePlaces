@@ -26,6 +26,7 @@ public class MapFrag extends SherlockMapFragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
         gMap = getMap();
+        gMap.setMyLocationEnabled(true);
         locationManager = (LocationManager) getSherlockActivity().getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER   
  
@@ -35,7 +36,7 @@ public class MapFrag extends SherlockMapFragment implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 	    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
+	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
 	    gMap.animateCamera(cameraUpdate);
 	    locationManager.removeUpdates(this);
 	}

@@ -30,7 +30,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.myawesomeplaces.R;
 
-public class AddFrag extends SherlockFragment implements OnClickListener, LoaderCallbacks<RESTLoader.RESTResponse>
+public class AddFrag extends SherlockFragment implements OnClickListener, LoaderCallbacks<PlaceSearchResult>
 {
 	
 		SherlockFragmentActivity parent;
@@ -107,11 +107,12 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	        params.putString("sensor", "true");
 	        params.putString("orderby", "distance");
 	        params.putString("radius", Integer.toString(1000));
+	        params.putString("types", "establishment");
 	        
 	        // These are the loader arguments. They are stored in a Bundle because
 	        // LoaderManager will maintain the state of our Loaders for us and
 	        // reload the Loader if necessary. This is the whole reason why
-	        // we have even bothered to implement RESTLoader.
+	        // we have even bothered to implement PlacesAPILoader.
 	        Bundle args = new Bundle();
 	        args.putParcelable("uri", placesUri);
 	        args.putParcelable("params", params);
@@ -130,67 +131,32 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	    }
 	    
 	    @Override
-	    public Loader<RESTLoader.RESTResponse> onCreateLoader(int id, Bundle args) {
+	    public Loader<PlaceSearchResult> onCreateLoader(int id, Bundle args) {
 	        if (args != null && args.containsKey("uri") && args.containsKey("params")) {
 	            Uri action = args.getParcelable("uri");
 	            Bundle params = args.getParcelable("params");
 	            
-	            return new RESTLoader(rootView.getContext(), RESTLoader.HTTPVerb.GET, action, params);
+	            return new PlacesAPILoader(rootView.getContext(), action, params);
 	        }
 	        return null;
 	    }
 
 	    @Override
-	    public void onLoadFinished(Loader<RESTLoader.RESTResponse> loader, RESTLoader.RESTResponse data) {
-	        int code = data.getCode();
-	        String json = data.getData();
+	    public void onLoadFinished(Loader<PlaceSearchResult> loader, PlaceSearchResult result) {
+	        String placeName = result.getFirstName();
 	        
-	        // Check to see if we got an HTTP 200 code and have some data.
-	        if (code == 200 && !json.equals("")) {
-	            
-	            // For really complicated JSON decoding I usually do my heavy lifting
-	            // Gson and proper model classes, but for now let's keep it simple
-	            // and use a utility method that relies on some of the built in
-	            // JSON utilities on Android.
-	            String placename = getNameFromJson(json);
-	            
-	            TextView tv = (TextView) rootView.findViewById(R.id.placeOutput);
-	            tv.setText(placename);
-	            
-	            
-	        }
-	        else {
-	            Toast.makeText(rootView.getContext(), "Failed to load Twitter data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+	        if (placeName != "") {
+	        	TextView tv = (TextView) rootView.findViewById(R.id.placeOutput);
+	        	tv.setText(placeName);
+	        } else {
+	        	Toast.makeText(rootView.getContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
 	        }
 	    }
 
 	    @Override
-	    public void onLoaderReset(Loader<RESTLoader.RESTResponse> loader) {
+	    public void onLoaderReset(Loader<PlaceSearchResult> loader) {
 	    }
-	    
-	    private static String getNameFromJson(String json) {
-	    	
-	    	ArrayList<String> names = new ArrayList<String>();
-	    	
-	    	try {
-	    		JSONObject input = (JSONObject) new JSONTokener(json).nextValue();
-	    		JSONArray resultsArray = input.getJSONArray("results");
-	    		
-	    		for (int i = 0 ; i < resultsArray.length(); i++) {
-	    			JSONObject thisone = resultsArray.getJSONObject(i);
-	    			names.add(thisone.getString("name"));
-	    		}
-	    	} catch (JSONException e) {
-		            Log.e("AddFrag", "Failed to parse JSON.", e);
-		        }
-	    	
-	        if (names.size() > 0) {
-	        	return names.get(0);
-	        } else {
-	        	return "No results";
-	        }
-	        
-	    }
+	
 	}
 
 
