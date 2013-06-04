@@ -32,12 +32,13 @@ import android.util.Log;
 public class PlacesAPILoader extends AsyncTaskLoader<PlaceSearchResult> {
     private static final String TAG = PlacesAPILoader.class.getName();
     
+    private static final Uri mPlacesURL = Uri.parse("https://maps.googleapis.com/maps/api/place/nearbysearch/json");
+    
     // We use this delta to determine if our cached data is
     // old or not. The value we have here is 10 minutes;
     private static final long STALE_DELTA = 600000;
     
     
-    private Uri mPlacesURL;
     private Bundle mParams;
     private PlaceSearchResult mResult;
     
@@ -48,9 +49,8 @@ public class PlacesAPILoader extends AsyncTaskLoader<PlaceSearchResult> {
     }
     
  
-    public PlacesAPILoader(Context context, Uri address, Bundle params) {
+    public PlacesAPILoader(Context context, Bundle params) {
         super(context);
-        mPlacesURL = address;
         mParams = params;
     }
 
@@ -142,28 +142,26 @@ public class PlacesAPILoader extends AsyncTaskLoader<PlaceSearchResult> {
     }
 
     private static void attachUriWithQuery(HttpRequestBase request, Uri uri, Bundle params) {
-        try {
-            if (params == null) {
-                // No params were given or they have already been
-                // attached to the Uri.
-                request.setURI(new URI(uri.toString()));
-            }
-            else {
-                Uri.Builder uriBuilder = uri.buildUpon();
-                
-                // Loop through our params and append them to the Uri.
-                for (BasicNameValuePair param : paramsToList(params)) {
-                    uriBuilder.appendQueryParameter(param.getName(), param.getValue());
-                }
-                
-                uri = uriBuilder.build();
-                request.setURI(new URI(uri.toString()));
-            }
-        }
-        catch (URISyntaxException e) {
-            Log.e(TAG, "URI syntax was incorrect: "+ uri.toString());
-        }
+    	try {
+    		Uri.Builder uriBuilder = uri.buildUpon();
+    		
+    		uriBuilder.appendQueryParameter("key", "AIzaSyAowY3puwfLTCI6pjh9oDScEiFIhS1wpLU");
+    		uriBuilder.appendQueryParameter("sensor", "true");
+    		uriBuilder.appendQueryParameter("orderby", "distance");
+    		uriBuilder.appendQueryParameter("types", "establishment");
+
+    		// Loop through our params and append them to the Uri.
+    		for (BasicNameValuePair param : paramsToList(params)) {
+    			uriBuilder.appendQueryParameter(param.getName(), param.getValue());
+    		}
+
+    		uri = uriBuilder.build();
+    		request.setURI(new URI(uri.toString()));
+    	} catch (URISyntaxException e) {
+    		Log.e(TAG, "URI syntax was incorrect: "+ uri.toString());
+    	}
     }
+    
     
     
     private static List<BasicNameValuePair> paramsToList(Bundle params) {

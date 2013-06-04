@@ -95,30 +95,16 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	    }
 	    
 	    private void buttonSearchNearbyClicked() {
-	        // This is our REST action.
-	        Uri placesUri = Uri.parse("https://maps.googleapis.com/maps/api/place/nearbysearch/json");
-	        
+
 	        // Here we are going to place our REST call parameters. Note that
 	        // we could have just used Uri.Builder and appendQueryParameter()
 	        // here, but I wanted to illustrate how to use the Bundle params.
 	        Bundle params = new Bundle();
-	        params.putString("key", "AIzaSyAowY3puwfLTCI6pjh9oDScEiFIhS1wpLU");
 	        params.putString("location", getLocation());
-	        params.putString("sensor", "true");
-	        params.putString("orderby", "distance");
 	        params.putString("radius", Integer.toString(1000));
-	        params.putString("types", "establishment");
-	        
-	        // These are the loader arguments. They are stored in a Bundle because
-	        // LoaderManager will maintain the state of our Loaders for us and
-	        // reload the Loader if necessary. This is the whole reason why
-	        // we have even bothered to implement PlacesAPILoader.
-	        Bundle args = new Bundle();
-	        args.putParcelable("uri", placesUri);
-	        args.putParcelable("params", params);
 	        
 	        // Initialise the Loader.
-	        parent.getSupportLoaderManager().initLoader(0, args, this);
+	        parent.getSupportLoaderManager().initLoader(0, params, this);
 	    }
 	    
 	    private String getLocation() {
@@ -131,14 +117,8 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	    }
 	    
 	    @Override
-	    public Loader<PlaceSearchResult> onCreateLoader(int id, Bundle args) {
-	        if (args != null && args.containsKey("uri") && args.containsKey("params")) {
-	            Uri action = args.getParcelable("uri");
-	            Bundle params = args.getParcelable("params");
-	            
-	            return new PlacesAPILoader(rootView.getContext(), action, params);
-	        }
-	        return null;
+	    public Loader<PlaceSearchResult> onCreateLoader(int id, Bundle params) {
+	        return new PlacesAPILoader(rootView.getContext(), params);
 	    }
 
 	    @Override
