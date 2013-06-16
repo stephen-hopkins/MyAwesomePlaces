@@ -33,7 +33,6 @@ import com.myawesomeplaces.R;
 public class AddFrag extends SherlockFragment implements OnClickListener, LoaderCallbacks<PlaceSearchResult>
 {
 	
-		SherlockFragmentActivity parent;
 		View rootView;
 
 	    @Override
@@ -57,8 +56,6 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	        rb.setOnClickListener(this);
 	        rb = (RadioButton) rootView.findViewById(R.id.radioWithin);
 	        rb.setOnClickListener(this);
-	        
-	        parent = getSherlockActivity();
 	               
 	        return rootView;
 	    }
@@ -104,7 +101,7 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	        params.putString("radius", Integer.toString(1000));
 	        
 	        // Initialise the Loader.
-	        parent.getSupportLoaderManager().initLoader(0, params, this);
+	        getSherlockActivity().getSupportLoaderManager().initLoader(0, params, this);
 	    }
 	    
 	    private String getLocation() {
@@ -123,6 +120,9 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 
 	    @Override
 	    public void onLoadFinished(Loader<PlaceSearchResult> loader, PlaceSearchResult result) {
+	    	AddActivity parent = (AddActivity) getSherlockActivity();
+	    	parent.showSearchResults(result);
+	    	/*
 	        String placeName = result.getFirstName();
 	        
 	        if (placeName != "") {
@@ -130,7 +130,7 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	        	tv.setText(placeName);
 	        } else {
 	        	Toast.makeText(rootView.getContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-	        }
+	        } */
 	    }
 
 	    @Override

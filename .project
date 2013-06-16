@@ -3,6 +3,7 @@
 	<name>MyAwesomePlaces</name>
 	<comment></comment>
 	<projects>
+		<project>sherlock_lib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

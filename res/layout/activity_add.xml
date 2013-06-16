@@ -14,5 +14,11 @@
     android:name="com.myawesomeplaces.AddFrag"
     android:id="@+id/addfrag" />
 
+<fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:name="com.myawesomeplaces.SearchResultsFrag"
+    android:id="@+id/searchresultsfrag" />
+
 
 </RelativeLayout>

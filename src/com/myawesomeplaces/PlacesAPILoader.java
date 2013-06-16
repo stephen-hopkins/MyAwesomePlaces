@@ -24,6 +24,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,7 +39,6 @@ public class PlacesAPILoader extends AsyncTaskLoader<PlaceSearchResult> {
     // We use this delta to determine if our cached data is
     // old or not. The value we have here is 10 minutes;
     private static final long STALE_DELTA = 600000;
-    
     
     private Bundle mParams;
     private PlaceSearchResult mResult;
@@ -78,7 +79,7 @@ public class PlacesAPILoader extends AsyncTaskLoader<PlaceSearchResult> {
             int statusCode = responseStatus != null ? responseStatus.getStatusCode() : 0;
             
             if (statusCode == 200) {
-            	PlaceSearchResult result = new PlaceSearchResult(EntityUtils.toString(responseEntity));
+            	PlaceSearchResult result = new PlaceSearchResult(super.getContext(), EntityUtils.toString(responseEntity));
                 return result;
             } else {
             	return new PlaceSearchResult();

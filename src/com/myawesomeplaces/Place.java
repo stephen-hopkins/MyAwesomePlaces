@@ -20,8 +20,21 @@ public class Place {
 		mLocation.setLongitude(longitude);
 	}
 	
-	public String getNameNeighbourhood() {
+	@Override
+	public String toString() {
 		return mName + ", " + mVicinity;
+	}
+	
+	public String getID() {
+		return mGoogleID;
+	}
+	
+	public String getName() {
+		return mName;
+	}
+	
+	public String getVicinity() {
+		return mVicinity;
 	}
 
 }

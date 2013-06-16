@@ -7,36 +7,39 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import android.content.Context;
+import android.database.DataSetObserver;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class PlaceSearchResult {
+public class PlaceSearchResult implements ListAdapter{
 	
+	private Context mContext;
 	private Place[] mPlaces;
-	private boolean mHaveResults;
 	private int mNoOfResults;
-	private boolean mJsonError;
 	
-	public PlaceSearchResult (String jsonResult) {
-		
+	public PlaceSearchResult (Context context, String jsonResult) {
+		mContext = context;
 		if (jsonResult == "") {
-				mHaveResults = false;
+				mNoOfResults = 0;
 		} else {
-			mHaveResults = true;
 			parsePlacesFromJson(jsonResult);
 		}
 	}
 	
 	public PlaceSearchResult () {
-		mHaveResults = false;
+		mNoOfResults = 0;
 	}
 	
 	public String getFirstName() {
-		return mPlaces[0].getNameNeighbourhood();
-	}
-	
-	public boolean hasResults() {
-		return mHaveResults;
+		return mPlaces[0].toString();
 	}
 	
 	private void parsePlacesFromJson(String json) {
@@ -61,10 +64,96 @@ public class PlaceSearchResult {
 				mPlaces[n] = new Place(name, vicinity, id, ref, latitude, longitude);
 			}
 		} catch (JSONException je) {
-			mHaveResults = false;
+			mNoOfResults = 0;
 			Log.e("AddFrag", "Failed to parse JSON.", je);
 		}
 		return;
+	}
+
+	@Override
+	public int getCount() {
+		return mNoOfResults;
+	}
+
+	@Override
+	public Object getItem(int arg0) {
+		if (mPlaces[arg0] != null) {
+			return mPlaces[arg0];
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public long getItemId(int arg0) {
+		return arg0;
+	}
+
+	@Override
+	public int getItemViewType(int arg0) {
+		return 0;
+	}
+
+	@Override
+	public View getView(int arg0, View arg1, ViewGroup arg2) {
+		
+		if (mPlaces[arg0] == null) {
+			return null;
+		}
+		
+		View lineView;
+		if (arg1 == null) {
+			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			lineView = inflater.inflate(R.layout.view_twolineplace, arg2);
+		} else {
+			lineView = arg1;
+		}
+		
+		TextView name = (TextView) lineView.findViewById(R.id.placeName);
+		TextView vicinity = (TextView) lineView.findViewById(R.id.placeVicinity);
+		name.setText(mPlaces[arg0].getName());
+		vicinity.setText(mPlaces[arg0].getVicinity());
+		
+		return lineView;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 1;
+	}
+
+	@Override
+	public boolean hasStableIds() {
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return (mNoOfResults == 0);
+	}
+
+	@Override
+	public void registerDataSetObserver(DataSetObserver arg0) {
+		// TODO Auto-generated method stub
+		/* leaving blank for now as results won't change.  Could in future implement this,
+		   have placesloader result straight away, and then update via this observer then? */
+		 
+	}
+
+	@Override
+	public void unregisterDataSetObserver(DataSetObserver arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean areAllItemsEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled(int arg0) {
+		return true;
 	}
 	
 
