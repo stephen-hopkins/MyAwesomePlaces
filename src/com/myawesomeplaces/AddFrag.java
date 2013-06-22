@@ -40,59 +40,25 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	        Bundle savedInstanceState) {
 	        rootView = inflater.inflate(R.layout.frag_add, container, false);
 	        
-	        // populate spinner	        
-	        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinnerDistance);
-	        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.distance, android.R.layout.simple_spinner_item);
-	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	        spinner.setAdapter(adapter);
-	        spinner.setSelection(adapter.getPosition("30 kms"));
-	        
+        
 	        // set click listeners
 	        Button b = (Button) rootView.findViewById(R.id.buttonSearch);
 	        b.setOnClickListener(this);
-	        b = (Button) rootView.findViewById(R.id.buttonSearchNearby);
-	        b.setOnClickListener(this);
-	        RadioButton rb = (RadioButton) rootView.findViewById(R.id.radioAnywhere);
-	        rb.setOnClickListener(this);
-	        rb = (RadioButton) rootView.findViewById(R.id.radioWithin);
-	        rb.setOnClickListener(this);
 	               
 	        return rootView;
 	    }
 	    
    
 	    public void onClick(View v) {
-	    	if (v instanceof RadioButton) {
-		    	RadioButton rb;
-		        switch(v.getId()) {
-		        case R.id.radioWithin:
-		        	rb = (RadioButton) getSherlockActivity().findViewById(R.id.radioAnywhere);
-		        	rb.setChecked(false);
-		            break;
-		        case R.id.radioAnywhere:
-		        	rb = (RadioButton) getSherlockActivity().findViewById(R.id.radioWithin);
-		        	rb.setChecked(false);
-		            break;
-		        }
-	    	} else {
-	    		switch(v.getId()) {
+	    	switch(v.getId()) {
 	    		case R.id.buttonSearch:
 	    			buttonSearchClicked();
 	    			break;
-	    		case R.id.buttonSearchNearby:
-	    			buttonSearchNearbyClicked();
-	    			break;
 	    		}
-	    	}
 	    	return;
 	    }
 	    
 	    private void buttonSearchClicked() {
-	    	return;
-	    }
-	    
-	    private void buttonSearchNearbyClicked() {
-
 	        // Here we are going to place our REST call parameters. Note that
 	        // we could have just used Uri.Builder and appendQueryParameter()
 	        // here, but I wanted to illustrate how to use the Bundle params.
@@ -103,7 +69,7 @@ public class AddFrag extends SherlockFragment implements OnClickListener, Loader
 	        // Initialise the Loader.
 	        getSherlockActivity().getSupportLoaderManager().initLoader(0, params, this);
 	    }
-	    
+	    	    
 	    private String getLocation() {
 	    	LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 	    	String locationProvider = LocationManager.NETWORK_PROVIDER;

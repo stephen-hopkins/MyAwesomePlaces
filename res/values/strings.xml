@@ -5,9 +5,9 @@
     <string name="add">Add Place</string>
     <string name="settings">Settings</string>
     <string name="find">Find</string>
-    <string name="within">Within</string>
-    <string name="anywhere">Anywhere</string>
+    <string name="nearIn">Near or In</string>
     <string name="search">Search</string>
-    <string name ="searchNearby">List Places Near Me</string>
+    <string name="everything">Everything</string>
+    <string name="currentLocation">Current Location</string>
    
 </resources>

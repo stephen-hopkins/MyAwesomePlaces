@@ -104,7 +104,7 @@ public class PlaceSearchResult implements ListAdapter{
 		View lineView;
 		if (arg1 == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			lineView = inflater.inflate(R.layout.view_twolineplace, arg2);
+			lineView = inflater.inflate(R.layout.view_twolineplace, null);
 		} else {
 			lineView = arg1;
 		}

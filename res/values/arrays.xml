@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <string-array name="distance">
-    	<item>50 kms</item>
-        <item>30 kms</item>
-        <item>10 kms</item>
-        <item>5 kms</item>
-        <item>2 kms</item>
-    </string-array>
-    
+       
 </resources>

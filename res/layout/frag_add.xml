@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-     <Button
-        android:id="@+id/buttonSearchNearby"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/searchNearby" 
-        android:onClick="buttonSearchNearbyClicked" />
-
     <TextView
         android:id="@+id/findText"
         android:layout_width="wrap_content"
@@ -19,32 +12,27 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
    <EditText
-        android:id="@+id/searchParameter"
+        android:id="@+id/searchName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/everything"
         android:ems="10" > 
-        <requestFocus />
     </EditText>
     
-    <RadioButton
-        	android:id="@+id/radioWithin"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/within" 
-        	android:checked="true" 
-        	android:onClick="onRadioButtonClicked"/>
-
-    <Spinner
-        android:id="@+id/spinnerDistance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/nearInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nearIn"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
-    <RadioButton
-        	android:id="@+id/radioAnywhere"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/anywhere" 
-        	android:onClick="onRadioButtonClicked"/>
+    <EditText
+        android:id="@+id/searchLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/currentLocation"
+        android:ems="10" > 
+    </EditText>
     
     <Button
         android:id="@+id/buttonSearch"
@@ -53,18 +41,5 @@
         android:text="@string/search" 
         android:onClick="buttonSearchClicked"
         />
-
-    <TextView
-        android:id="@+id/placeOutput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/addressOutput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPostalAddress" />
 
 </LinearLayout>
